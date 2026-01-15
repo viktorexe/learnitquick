@@ -5,3 +5,4 @@ export { GameScreen } from './GameScreen';
 export { ResultsScreen } from './ResultsScreen';
 export { GameApp } from './GameApp';
 export { LoadingScreen } from './LoadingScreen';
+export { LearnScreen } from './LearnScreen';

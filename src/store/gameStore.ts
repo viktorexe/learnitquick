@@ -41,7 +41,7 @@ export interface GameState {
   totalCorrect: number;
   
   // Current game state
-  currentScreen: 'home' | 'subjects' | 'math-menu' | 'game' | 'results';
+  currentScreen: 'home' | 'subjects' | 'math-menu' | 'game' | 'results' | 'learn';
   currentGameMode: GameMode | null;
   currentDifficulty: Difficulty;
   currentQuestion: number;

@@ -8,6 +8,7 @@ import { HomeScreen } from '@/components/HomeScreen';
 import { MathMenu } from '@/components/MathMenu';
 import { GameScreen } from '@/components/GameScreen';
 import { ResultsScreen } from '@/components/ResultsScreen';
+import { LearnScreen } from '@/components/LearnScreen';
 
 export const GameApp = () => {
   const { currentScreen } = useGameStore();
@@ -89,6 +90,19 @@ export const GameApp = () => {
             transition={{ duration: 0.3 }}
           >
             <ResultsScreen />
+          </motion.div>
+        )}
+
+        {currentScreen === 'learn' && (
+          <motion.div
+            key="learn"
+            variants={pageVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            transition={{ duration: 0.3 }}
+          >
+            <LearnScreen />
           </motion.div>
         )}
       </AnimatePresence>

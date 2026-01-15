@@ -11,7 +11,9 @@ import {
   Clock, 
   Star,
   ChevronRight,
-  Sparkles
+  Sparkles,
+  GraduationCap,
+  BookOpen
 } from 'lucide-react';
 
 const gameModes: GameMode[] = [
@@ -106,12 +108,56 @@ export const MathMenu = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="text-center mb-12"
+        className="text-center mb-8"
       >
         <h1 className="text-4xl md:text-5xl font-bold text-white mb-3">
           Math <span className="gradient-text">Arena</span>
         </h1>
         <p className="text-gray-400 text-lg">Choose your challenge and compete with others!</p>
+      </motion.div>
+
+      {/* Learning Center Banner */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.15 }}
+        className="max-w-6xl mx-auto mb-8"
+      >
+        <motion.div
+          onClick={() => setCurrentScreen('learn')}
+          whileHover={{ scale: 1.02, y: -2 }}
+          whileTap={{ scale: 0.98 }}
+          className="glass-strong rounded-2xl p-6 cursor-pointer relative overflow-hidden group border border-emerald-500/20 hover:border-emerald-500/40 transition-all"
+        >
+          {/* Background gradient */}
+          <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-cyan-500/10 opacity-50 group-hover:opacity-100 transition-opacity" />
+          
+          <div className="relative z-10 flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <motion.div
+                className="w-14 h-14 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/30"
+                animate={{ rotate: [0, 5, -5, 0] }}
+                transition={{ duration: 3, repeat: Infinity }}
+              >
+                <GraduationCap className="w-7 h-7 text-white" />
+              </motion.div>
+              <div>
+                <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                  Learning Center
+                  <span className="text-xs bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full">NEW</span>
+                </h3>
+                <p className="text-gray-400 text-sm">Master tables, carry forward & more at your own pace - no competition!</p>
+              </div>
+            </div>
+            <div className="hidden md:flex items-center gap-4">
+              <div className="flex items-center gap-2 text-emerald-400">
+                <BookOpen className="w-4 h-4" />
+                <span className="text-sm">Interactive Lessons</span>
+              </div>
+              <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all" />
+            </div>
+          </div>
+        </motion.div>
       </motion.div>
 
       {/* Live players indicator */}
