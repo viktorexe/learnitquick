@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { useGameStore } from '@/store/gameStore';
 import { Sparkles, Coins, Trophy, Zap, ChevronRight, Lock, BookOpen, Calculator } from 'lucide-react';
 
@@ -39,7 +39,7 @@ export const HomeScreen = () => {
     }
   };
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -50,12 +50,12 @@ export const HomeScreen = () => {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { type: 'spring', stiffness: 100, damping: 12 },
+      transition: { type: 'spring' as const, stiffness: 100, damping: 12 },
     },
   };
 
