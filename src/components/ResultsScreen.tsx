@@ -3,34 +3,30 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useGameStore } from '@/store/gameStore';
-import { getModeInfo } from '@/utils/questionGenerator';
+import { useSoundManager } from '@/utils/sounds';
 import { 
   Trophy, 
   Medal,
-  Coins,
-  Star,
   Flame,
   Target,
   RotateCcw,
   Home,
-  ChevronRight,
   Sparkles,
   Crown
 } from 'lucide-react';
 
 export const ResultsScreen = () => {
+  const soundManager = useSoundManager();
   const {
     players,
     correctAnswers,
     wrongAnswers,
     coinsEarned,
     maxStreak,
-    currentGameMode,
     questions,
     setCurrentScreen,
     resetGame,
     totalCoins,
-    playerAvatar,
   } = useGameStore();
 
   const [showConfetti, setShowConfetti] = useState(false);
@@ -38,17 +34,16 @@ export const ResultsScreen = () => {
   const [showStats, setShowStats] = useState(false);
 
   const sortedPlayers = [...players].sort((a, b) => b.score - a.score);
-  const playerData = sortedPlayers.find(p => p.id === 'player');
   const playerRank = sortedPlayers.findIndex(p => p.id === 'player') + 1;
   const isTopThree = playerRank <= 3;
   const accuracy = questions.length > 0 ? Math.round((correctAnswers / questions.length) * 100) : 0;
-  const modeInfo = currentGameMode ? getModeInfo(currentGameMode) : null;
 
   // Reveal animation sequence
   useEffect(() => {
     // Show confetti for top 3
     if (isTopThree) {
       setShowConfetti(true);
+      soundManager.playVictory();
       setTimeout(() => setShowConfetti(false), 5000);
     }
 

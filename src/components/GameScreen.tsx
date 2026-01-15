@@ -4,9 +4,8 @@ import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useGameStore } from '@/store/gameStore';
 import { getModeInfo } from '@/utils/questionGenerator';
+import { useSoundManager } from '@/utils/sounds';
 import { 
-  Zap, 
-  Users, 
   Trophy,
   Clock,
   Coins,
@@ -16,6 +15,7 @@ import {
 } from 'lucide-react';
 
 export const GameScreen = () => {
+  const soundManager = useSoundManager();
   const {
     questions,
     currentQuestion,
@@ -29,8 +29,6 @@ export const GameScreen = () => {
     nextQuestion,
     endGame,
     updateBotScores,
-    playerAvatar,
-    playerName,
   } = useGameStore();
 
   const [selectedAnswer, setSelectedAnswer] = useState<string | number | null>(null);
@@ -54,6 +52,7 @@ export const GameScreen = () => {
   useEffect(() => {
     if (showCountdown) {
       const timer = setInterval(() => {
+        soundManager.playCountdown();
         setCountdownNum((prev) => {
           if (prev <= 1) {
             clearInterval(timer);
@@ -65,7 +64,7 @@ export const GameScreen = () => {
       }, 1000);
       return () => clearInterval(timer);
     }
-  }, [showCountdown]);
+  }, [showCountdown, soundManager]);
 
   // Question timer
   useEffect(() => {
@@ -94,9 +93,12 @@ export const GameScreen = () => {
 
     if (correct) {
       setCoinAnimation(true);
+      soundManager.playCorrect();
+      soundManager.playCoin();
       setTimeout(() => setCoinAnimation(false), 1000);
     } else {
       setShakeWrong(true);
+      soundManager.playWrong();
       setTimeout(() => setShakeWrong(false), 500);
     }
 
@@ -114,7 +116,7 @@ export const GameScreen = () => {
         setTimeLeft(15);
       }
     }, 1500);
-  }, [showResult, answerQuestion, updateBotScores, currentQuestion, questions.length, endGame, nextQuestion]);
+  }, [showResult, answerQuestion, updateBotScores, currentQuestion, questions.length, endGame, nextQuestion, soundManager]);
 
   // Countdown screen
   if (showCountdown) {

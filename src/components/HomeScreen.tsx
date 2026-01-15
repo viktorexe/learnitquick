@@ -22,10 +22,8 @@ export const HomeScreen = () => {
   const [showNameInput, setShowNameInput] = useState(!playerName);
   const [inputName, setInputName] = useState(playerName);
   const [selectedAvatar, setSelectedAvatar] = useState(playerAvatar);
-  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    setIsLoaded(true);
     if (!playerName) {
       setShowNameInput(true);
     }
